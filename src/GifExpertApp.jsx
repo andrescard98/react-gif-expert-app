@@ -1,40 +1,21 @@
-import { useState } from "react";
-import { AddCategory, GifGrid } from './components';
-
+import { FooterGifs } from './components/FooterGifs';
+import { HeaderGifs } from "./components/HeaderGifs";
+import { Routes, Route} from "react-router-dom";
+import { GifHome } from './pages/GifHome';
+import { GitNotFound } from './pages/GitNotFound';
+import { GifFavorites } from './pages/GifFavorites';
 export const GifExpertApp = () => {
 
-
-
-  const [categories, setCategories] = useState(['Michis']);
-
-  const onAddCategory = (newCategory) => {
-
-    if (categories.includes(newCategory)) {
-      alert("El nombre ya está incluido")
-      return;
-    }
-
-    /* categories.push(newCategory); */
-    console.log(newCategory);
-    setCategories([newCategory, ...categories]);
-  }
-
-
+  
   return (
     <>
-      <h1>GifExpertApp</h1>
-      <AddCategory 
-        onNewCategory={ (event) => onAddCategory(event)}
-      />
-      {
-        categories.map((category) => (
-          <GifGrid
-            key={category}
-            category={category}
-          />
-        ))
-      }
-      
+      <HeaderGifs/>
+      <Routes>
+          <Route path="/" element={<GifHome/>} />
+          <Route path="/favorites" element={<GifFavorites/>}/>
+          <Route path="*" element={<GitNotFound/>}/>
+      </Routes>
+      <FooterGifs/>
     </>
   )
 }
